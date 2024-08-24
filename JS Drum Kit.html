@@ -1,4 +1,6 @@
-# JS-Drum-Kit
+#JS Drum Kit
+
+// for audio : https://drive.google.com/drive/folders/1pJ_bqwMOLOVaF3DMLRP-YC0gDYqRnZJW?usp=drive_link
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,6 +9,64 @@
     <title>JS Drum Kit</title>
     <link rel="stylesheet" href="JS Drum Kit.css" />
   </head>
+
+  <style>
+
+    body {
+      background-image: url("file:///C:/Users/CJ/Downloads/drummer-plays-on-dark-stage-600nw-2345345723.webp");
+      background-size: cover; /* Cover the entire area */
+      background-position: center; /* Center the image */
+      background-repeat: no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: "Arial", sans-serif;
+    }
+    .keys {
+      display: flex;
+      justify-content: center;
+    }
+    
+    .key {
+      border: 0.4rem solid #333;
+      border-radius: 0.5rem;
+      margin: 1rem;
+      width: 6rem;
+      height: 6rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      background-color: #444;
+      color: white;
+      text-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+      transition: transform 1s ease;
+    }
+    
+    .key:active,
+    .key.playing {
+      transform: scale(1.1);
+      border-color: #cb83ff;
+      box-shadow: 0 0 1rem #cb83ff;
+    }
+    .key.active {
+      background-color: #c0c0c0; /* Change color on click */
+    }
+    .key kbd {
+      display: block;
+      font-size: 4rem;
+    }
+    
+    .key span {
+      font-size: 1.2rem;
+      color: #cb83ff;
+      margin-top: 1rem;
+    }
+    
+  </style>
+</head>
   <body>
     <div class="keys">
       <div data-key="65" class="key">
@@ -79,6 +139,22 @@
       src="C:\Users\CJ\Downloads\131553-Old-Drum-Hit-Fienup-001.wav"
     ></audio>
 
-    <script type="text/javascript" src="JS Drum Kit.js"></script>
+    <script>
+
+      document.querySelectorAll(".key").forEach((key) => {
+  key.addEventListener("click", function () {
+    const keyCode = this.getAttribute("data-key");
+    const audio = document.querySelector(`audio[data-key="${keyCode}"]`);
+    console.log(audio); // Debugging: check if the audio element is found
+    if (audio) {
+      audio.currentTime = 0; // Rewind to the start
+      audio.play();
+      this.classList.add("playing");
+      setTimeout(() => this.classList.remove("playing"), 100);
+    }
+  });
+});
+
+    </script>
   </body>
 </html>
